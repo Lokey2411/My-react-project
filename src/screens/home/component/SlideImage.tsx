@@ -42,6 +42,6 @@ const SlideImage = (props: SlideProps) => {
   );
 };
 
-export default SlideImage;
+export default React.memo(SlideImage);
 
 const styles = StyleSheet.create({});

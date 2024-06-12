@@ -6,7 +6,7 @@ import { Text, VStack } from "@gluestack-ui/themed";
 import { BottomTabsParams } from "./config";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Quizz from "../screens/quizz-mode/Quizz";
-import Practice from "../screens/guess-word/Practice";
+import Practice from "../screens/practice/Practice";
 import Puzzle from "../screens/puzzle/Puzzle";
 import { UseTokenColor } from "../hook/UseTokenColor";
 
@@ -63,8 +63,8 @@ export const TabData: ITabData[] = [
   {
     id: 3,
     tabName: "Practice",
-    title: "Nối từ",
-    iconName: "bulb",
+    title: "Tự luận",
+    iconName: "information-circle-sharp",
     component: Practice,
   },
   {

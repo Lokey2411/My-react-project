@@ -31,25 +31,3 @@ export const basic: IData[] = [
   },
 ];
 
-export const softAnimal: IData[] = [
-  {
-    id: 1,
-    image: require("../assets/octopus1.png"),
-    title: "Mực ống",
-    description: `Bộ Mực ống (danh pháp khoa học: Teuthida) là một nhóm động vật biển thuộc siêu bộ Mười chân (Decapodiformes) của lớp Chân đầu (Cephalopoda). Mực ống có phần thân và phần đầu rõ ràng. Thân cân xứng hai phía, có da và có 6 "tay" và 2 "chi". Mực ống có chứa hợp chất mực màu đen trong cơ thể, khi gặp nguy hiểm, mực phun ra tạo màn đen dày đặc, qua đó lẩn trốn khỏi nguy cơ đe dọa.`,
-  },
-  {
-    id: 2,
-    image: require("../assets/octopus1.png"),
-    title: "Mực nang",
-    description:
-      "Bộ Mực nang (danh pháp hai phần: Sepiida) là một bộ động vật nhuyễn thể thuộc lớp Cephalopoda (trong đó cũng bao gồm mực ống, bạch tuộc và ốc anh vũ).",
-  },
-  {
-    id: 3,
-    image: require("../assets/octopus1.png"),
-    title: "Mực nang",
-    description:
-      "Bộ Mực nang (danh pháp hai phần: Sepiida) là một bộ động vật nhuyễn thể thuộc lớp Cephalopoda (trong đó cũng bao gồm mực ống, bạch tuộc và ốc anh vũ).",
-  },
-];

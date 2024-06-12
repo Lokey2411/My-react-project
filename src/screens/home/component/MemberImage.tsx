@@ -8,7 +8,7 @@ export interface MemberImageProps {
   wrapperStyle?: any;
 }
 
-export default function MemberImage(props: MemberImageProps) {
+function MemberImage(props: MemberImageProps) {
   const { image, name, wrapperStyle } = props;
 
   return (
@@ -30,3 +30,4 @@ export default function MemberImage(props: MemberImageProps) {
 }
 
 const styles = StyleSheet.create({});
+export default React.memo(MemberImage);
