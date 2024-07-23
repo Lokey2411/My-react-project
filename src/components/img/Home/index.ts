@@ -1,0 +1,11 @@
+import action1 from "./action1.png";
+import action2 from "./action2.png";
+import action3 from "./action3.png";
+import event1 from "./event1.png";
+import event2 from "./event1.png";
+import event3 from "./event1.png";
+import news1 from "./news1.png";
+import news2 from "./news1.png";
+import news3 from "./news1.png";
+const HomeImages = { action1, action2, action3, event1, event2, event3, news1, news2, news3 };
+export default HomeImages;
