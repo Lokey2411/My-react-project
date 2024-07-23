@@ -45,9 +45,21 @@ const PuzzleScreen = ({ route, navigation, ...props }: Props) => {
 					setPieces={setPieces}
 					source={source}
 				/>
-				<Button onPress={handleHint}>
-					<Text>Hint</Text>
-				</Button>
+				<Pressable
+					bg="$yellow500"
+					p={8}
+					rounded={8}
+					onPress={handleHint}
+				>
+					<Text
+						textAlign="center"
+						fontSize={"$xl"}
+						fontWeight="$semibold"
+						color="$white"
+					>
+						Hint
+					</Text>
+				</Pressable>
 				<Model show={isCorrect}>
 					<Box
 						p="$4"
