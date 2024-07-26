@@ -1,97 +1,120 @@
 import { StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Box, Button, Pressable, SafeAreaView, Text } from "@gluestack-ui/themed";
+import { Box, Button, HStack, Progress, ProgressFilledTrack, Text } from "@gluestack-ui/themed";
 import PuzzleGame from "../../components/common/PuzzleGame";
 import { PuzzlePieces } from "react-native-picture-puzzle";
-import { modePuzzle, randomPuzzle } from "../../db/puzzle";
+import { EMode, checkEqualPuzzle, finishPuzzle, puzzleData, randomPuzzle } from "../../db/puzzle";
 import PuzzleModal from "../../components/common/PuzzleModal";
-import { useRoute } from "@react-navigation/native";
+import useCountDown from "../../hook/useCountDown";
+import RatingStar from "../../components/RatingStar";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { BottomRootParams } from "../../navigations/config";
-import { getRandomArrayItem } from "../../functions/controller";
-import Model from "../../components/Model";
+import { RootStackParams } from "../../navigations/config";
+import FinishModal from "../../components/common/FinishModal";
+import { getRandomElement } from "../../utils/function";
 
-type Props = {} & NativeStackScreenProps<BottomRootParams, "PuzzleScreen">;
+type Props = {} & NativeStackScreenProps<RootStackParams, "PuzzleScreen">;
 
-const PuzzleScreen = ({ route, navigation, ...props }: Props) => {
-	const { mode } = route.params;
-	const [pieces, setPieces] = React.useState<PuzzlePieces>(getRandomArrayItem(randomPuzzle[mode]));
+const PuzzleScreen = ({ navigation, route }: Props) => {
+	const idPuzzle = route.params.id;
+	const myPuzzle = puzzleData.filter((puzzle) => puzzle.id === idPuzzle)[0];
+	const mode = myPuzzle.mode;
+	const source = { uri: myPuzzle.image };
+
+	const [pieces, setPieces] = React.useState<PuzzlePieces>(randomPuzzle[mode][Math.floor(Math.random() * randomPuzzle[mode].length)]);
 	const [show, setShow] = useState(false);
-	const isCorrect = pieces.every((piece, index) => piece === index);
-	const source = React.useMemo(
-		() => ({
-			uri: "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-		}),
-		[]
-	);
+	const [showFinish, setShowFinish] = useState(false);
+
+	const totalTime = 45 * (myPuzzle.mode + 2);
+	const { remainingTime, pause } = useCountDown(totalTime);
 
 	const handleHint = () => {
 		setShow(true);
 	};
+
+	useEffect(() => {
+		if (checkEqualPuzzle(pieces, finishPuzzle[mode])) {
+			pause();
+			setShowFinish(true);
+		}
+	}, [pieces]);
+
+	useEffect(() => {
+		if (remainingTime <= 0) {
+			setShowFinish(true);
+		}
+	}, [remainingTime]);
+
 	return (
-		<SafeAreaView flex={1}>
-			<Box
-				flex={1}
-				px={24}
-				gap={16}
-			>
-				<PuzzleModal
-					show={show}
-					setShow={setShow}
-					source={source}
-				/>
-				<PuzzleGame
-					pieces={pieces}
-					setPieces={setPieces}
-					source={source}
-				/>
-				<Pressable
-					bg="$yellow500"
-					p={8}
-					rounded={8}
-					onPress={handleHint}
+		<Box
+			flex={1}
+			p="$4"
+			pt="$10"
+			gap="$12"
+			bg="$white"
+		>
+			<FinishModal
+				showModal={showFinish}
+				setShowModal={setShowFinish}
+				isWinner={remainingTime > 0}
+				idData={getRandomElement(myPuzzle.result)}
+			/>
+			<PuzzleModal
+				show={show}
+				setShow={setShow}
+				source={source}
+			/>
+			<Box gap="$2">
+				<Progress
+					value={(remainingTime / totalTime) * 100}
+					size="sm"
+					bg="$primary300"
 				>
-					<Text
-						textAlign="center"
-						fontSize={"$xl"}
-						fontWeight="$semibold"
-						color="$white"
-					>
-						Hint
-					</Text>
-				</Pressable>
-				<Model show={isCorrect}>
-					<Box
-						p="$4"
-						rounded={"$lg"}
-						alignItems="center"
-						gap={12}
-					>
-						<Text
-							fontWeight="$bold"
-							fontSize="$xl"
-							textAlign="center"
-						>
-							Chúc mừng!
-						</Text>
-						<Text textAlign="center">Bạn đã hoàn thành trò chơi</Text>
-						<Pressable
-							onPress={() => navigation.goBack()}
-							bg={"$green500"}
-							p={8}
-							rounded={8}
-						>
-							<Text
-								color="$white"
-								fontWeight="$semibold"
-							>
-								Xác nhận
-							</Text>
-						</Pressable>
-					</Box>
-				</Model>
+					<ProgressFilledTrack bg="$primary600" />
+				</Progress>
+				<Text
+					textAlign="center"
+					fontWeight={"$semibold"}
+					color="$coolGray800"
+				>
+					{remainingTime}
+				</Text>
 			</Box>
-		</SafeAreaView>
+			<Box
+				alignItems="center"
+				gap={"$4"}
+			>
+				<RatingStar
+					rate={myPuzzle.mode + 1}
+					size={32}
+				/>
+				<Box
+					p={"$4"}
+					rounded={"$2xl"}
+					bg="$primary50"
+				>
+					<PuzzleGame
+						pieces={pieces}
+						setPieces={setPieces}
+						source={source}
+					/>
+				</Box>
+				<HStack
+					justifyContent="flex-end"
+					w="$full"
+				>
+					<Button onPress={handleHint}>
+						<Text
+							color="$white"
+							fontWeight={"$semibold"}
+							fontSize={20}
+							lineHeight={28}
+						>
+							Hint
+						</Text>
+					</Button>
+				</HStack>
+			</Box>
+		</Box>
 	);
 };
 

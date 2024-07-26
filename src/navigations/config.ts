@@ -4,7 +4,7 @@ export type RootStackParams = {
 	QuizzScreen: undefined;
 	PracticeDetail: undefined;
 	Detail: undefined;
-	PuzzleScreen: { mode: "easy" | "medium" | "hard" };
+	PuzzleScreen: { id: number };
 };
 
 export type BottomTabsParams = {
