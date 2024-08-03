@@ -1,8 +1,12 @@
+import { Exercise } from "../db/practice";
+
 export type RootStackParams = {
 	TabNavigation: undefined;
 	QuizzResult: undefined;
 	QuizzScreen: undefined;
-	PracticeDetail: undefined;
+	PracticeDetail: {
+		index: number;
+	} & Exercise;
 	Detail: undefined;
 	PuzzleScreen: { id: number };
 };
