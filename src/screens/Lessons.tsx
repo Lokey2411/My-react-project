@@ -80,8 +80,14 @@ const Lessons = (props: Props) => {
 						mx={7}
 						space={3}
 					>
-						<TouchableOpacity>
-							<ArrowLeft />
+						<TouchableOpacity
+							onPress={() => {
+								console.log(lessonIdx === 0 ? inactiveButtonColor : activeButtonColor);
+								if (lessonIdx === 0) return;
+								setLessonIdx((lessonIdx - 1 + Object.keys(lessons).length) % Object.keys(lessons).length);
+							}}
+						>
+							<ArrowLeft color={lessonIdx === 0 ? inactiveButtonColor : activeButtonColor} />
 						</TouchableOpacity>
 						<Box
 							flex={1}
@@ -108,8 +114,13 @@ const Lessons = (props: Props) => {
 								onChangeState={onStateChange}
 							/>
 						</Box>
-						<TouchableOpacity>
-							<ArrowRight />
+						<TouchableOpacity
+							onPress={() => {
+								if (lessonIdx === Object.keys(lessons).length - 1) return;
+								setLessonIdx((lessonIdx + 1) % Object.keys(lessons).length);
+							}}
+						>
+							<ArrowRight color={lessonIdx === Object.keys(lessons).length - 1 ? inactiveButtonColor : activeButtonColor} />
 						</TouchableOpacity>
 					</HStack>
 					<HStack

@@ -53,8 +53,8 @@ const ObjectiveTest = (props: Props) => {
 	const [answerTag, setAnswerTag] = useState<IAnserTag[]>(createAnswerTags());
 	const [infoModal, setInfoModal] = useState({
 		status: false,
-		title: "",
-		text: "",
+		title: "Yeah!",
+		text: "Bạn đã trả lời đúng",
 	});
 
 	const handleModalBtn = () => {
