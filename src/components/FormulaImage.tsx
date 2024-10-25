@@ -47,7 +47,12 @@ const FormulaImage = (props: Props) => {
 				=
 			</Text>
 			{/* Box Ques */}
-			{props.answerTag ? props.answerTag : <BoxQuestion size={"M"} />}
+			<Box
+				width={60}
+				height={60}
+			>
+				{props.answerTag ? props.answerTag : <BoxQuestion size={"M"} />}
+			</Box>
 			{/* Box Ans */}
 		</HStack>
 	);

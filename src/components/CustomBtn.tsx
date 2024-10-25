@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, StyleSheetProperties, TouchableOpacity, ViewStyle } from "react-native";
 import React from "react";
 import { Box, IBoxProps, Text } from "native-base";
 import { EFont, IGradientColor } from "../types/utils";
@@ -18,10 +18,11 @@ type Props = {
 	text: string;
 	handleBtn: () => void;
 	disabled?: boolean;
+	boxStyle?: ViewStyle;
 } & IBoxProps;
 
 const CustomBtn = (props: Props) => {
-	const { text, size, btnColor, handleBtn, disabled = false, ...boxProps } = props;
+	const { text, size, btnColor, handleBtn, disabled = false, boxStyle, ...boxProps } = props;
 	const { width, height, fontSize } = responsiveSize[size || "MD"];
 	return (
 		<TouchableOpacity
@@ -29,17 +30,20 @@ const CustomBtn = (props: Props) => {
 			disabled={disabled}
 			style={{
 				margin: 3,
+				flex: 1,
+				...styles.button,
+				backgroundColor: "red",
 			}}
 		>
-			<Box
-				shadow={2}
-				{...boxProps}
-				style={[styles.button, { width, height }]}
+			<LinearGradient
+				// Button Linear Gradient
+				colors={disabled ? ["#fff", "#cecece"] : [btnColor.color1, btnColor.color2]}
+				style={{ ...styles.gradientColor, flex: 1, ...boxStyle }}
 			>
-				<LinearGradient
-					// Button Linear Gradient
-					colors={disabled ? ["#fff", "#cecece"] : [btnColor.color1, btnColor.color2]}
-					style={styles.gradientColor}
+				<Box
+					shadow={2}
+					{...boxProps}
+					style={[{ flex: 1, justifyContent: "center", alignItems: "center" }]}
 				>
 					<Text
 						fontSize={fontSize}
@@ -49,8 +53,8 @@ const CustomBtn = (props: Props) => {
 					>
 						{text}
 					</Text>
-				</LinearGradient>
-			</Box>
+				</Box>
+			</LinearGradient>
 		</TouchableOpacity>
 	);
 };

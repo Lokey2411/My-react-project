@@ -26,18 +26,19 @@ const createRandomQuestions = (operation: string, length: number) => {
 	return value;
 };
 
-const randomQuestions = {
-	"+": createRandomQuestions("+", NUM_QUESTIONS),
-	"-": createRandomQuestions("-", NUM_QUESTIONS),
-};
-
 const createAnswerTags = (): IAnserTag[] => {
 	return [null, null, null, null, null];
 };
 
+let randomQuestions = {
+	"+": createRandomQuestions("+", NUM_QUESTIONS),
+	"-": createRandomQuestions("-", NUM_QUESTIONS),
+};
 const ObjectiveTest = (props: Props) => {
 	const { operation } = props.route.params;
-	const questions = randomQuestions[operation as "+" | "-"];
+	const questions = useMemo(() => {
+		return randomQuestions[operation as "+" | "-"];
+	}, [randomQuestions]);
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const currentQuestion = useMemo(() => {
 		return questions[currentQuestionIndex];
@@ -96,6 +97,9 @@ const ObjectiveTest = (props: Props) => {
 			setShowModal(true);
 		}
 	}, [currentQuestionIndex, answerTag]);
+	useEffect(() => {
+		randomQuestions[operation as "+" | "-"] = createRandomQuestions(operation, NUM_QUESTIONS);
+	}, []);
 
 	return (
 		<LessonLayout iconSource={require("../../../assets/images/bg-2.jpg")}>
@@ -117,7 +121,11 @@ const ObjectiveTest = (props: Props) => {
 				alignSelf={"flex-start"}
 			>
 				{/* 3 first items */}
-				<VStack space={2}>
+				<VStack
+					space={2}
+					alignItems={"flex-end"}
+					width={"50%"}
+				>
 					{questions.map(
 						(item, index) =>
 							index < 3 && (
@@ -137,7 +145,11 @@ const ObjectiveTest = (props: Props) => {
 					width={0.5}
 					height={"140%"}
 				></HStack>
-				<VStack space={2}>
+				<VStack
+					space={2}
+					alignItems={"flex-end"}
+					width={"50%"}
+				>
 					{questions.map(
 						(item, index) =>
 							index >= 3 && (

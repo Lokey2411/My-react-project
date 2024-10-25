@@ -157,13 +157,19 @@ const Lessons = (props: Props) => {
 								<Tick />
 							</HStack>
 						</VStack>
-						<CustomBtn
-							btnColor={colors.gradient.secondary.orange}
-							size="SM"
-							text="Bài kiểm tra"
-							handleBtn={navigateExamScreen}
-							disabled={lessons[lessonIdx].exams.length <= 0}
-						/>
+						<Box height={50}>
+							<CustomBtn
+								btnColor={colors.gradient.secondary.orange}
+								size="SM"
+								boxStyle={{
+									paddingHorizontal: 12,
+									paddingVertical: 8,
+								}}
+								text="Bài kiểm tra"
+								handleBtn={navigateExamScreen}
+								disabled={lessons[lessonIdx].exams.length <= 0}
+							/>
+						</Box>
 					</HStack>
 				</VStack>
 			</Box>

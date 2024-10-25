@@ -22,7 +22,7 @@ const BoxQuestion = (props: Props) => {
 	}
 	return (
 		<Box
-			style={{ width, height }}
+			style={{ flex: 1 }}
 			bgColor={"primary.600"}
 			borderWidth={1}
 			borderRadius={8}

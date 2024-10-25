@@ -22,7 +22,7 @@ const LessonLayout = (props: Props) => {
 				py={8}
 				flexDir={"row"}
 				style={{
-					gap: 28,
+					// gap: 28,
 					marginRight: 64,
 				}}
 			>

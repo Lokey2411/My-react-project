@@ -37,6 +37,13 @@ const Home = (props: Props) => {
 		});
 	};
 
+	const buttons = [
+		{ text: "Bài giảng", handleBtn: navigateLessonsScreen },
+		{ text: "Đếm số", handleBtn: navigateCountScreen },
+		{ text: "Trắc nghiệm phép cộng", handleBtn: navigateAddScreen },
+		{ text: "Trắc nghiệm phép trừ", handleBtn: navigateSubtractScreen },
+	];
+
 	useFocusEffect(() => {
 		const playSound = new Audio.Sound();
 		loadSound(playSound, require("../../assets/sound/music.mp3"));
@@ -77,32 +84,23 @@ const Home = (props: Props) => {
 					space={12}
 					flexDirection={"row"}
 					flexWrap={"wrap"}
-					justifyContent={"flex-end"}
+					alignSelf={"flex-end"}
 				>
-					<CustomBtn
-						btnColor={colors.gradient.primary}
-						text="Bài giảng"
-						size="MD"
-						handleBtn={navigateLessonsScreen}
-					/>
-					<CustomBtn
-						btnColor={colors.gradient.primary}
-						text="Đếm số"
-						size="MD"
-						handleBtn={navigateCountScreen}
-					/>
-					<CustomBtn
-						btnColor={colors.gradient.primary}
-						text="Trắc nghiệm phép cộng"
-						size="MD"
-						handleBtn={navigateAddScreen}
-					/>
-					<CustomBtn
-						btnColor={colors.gradient.primary}
-						text="Trắc nghiệm phép trừ"
-						size="MD"
-						handleBtn={navigateSubtractScreen}
-					/>
+					{buttons.map((button, index) => (
+						<Box
+							key={index}
+							width={"50%"}
+						>
+							<CustomBtn
+								key={index}
+								btnColor={colors.gradient.primary}
+								text={button.text}
+								size="MD"
+								padding={2}
+								handleBtn={button.handleBtn}
+							/>
+						</Box>
+					))}
 				</VStack>
 				<Box alignSelf={"center"}>
 					<Text

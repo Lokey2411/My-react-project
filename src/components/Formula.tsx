@@ -13,6 +13,7 @@ type Props = {
 } & InterfaceHStackProps;
 
 const Formula = ({ size, status = EQuizStatus.ANSWER, data, answerTag, ...props }: Props) => {
+	const width = size == "M" ? 60 : 40;
 	let fontSize: number, spacing;
 	if (size == "M") {
 		fontSize = 40;
@@ -54,14 +55,19 @@ const Formula = ({ size, status = EQuizStatus.ANSWER, data, answerTag, ...props 
 				</Box>
 			))}
 			{/* Box Ques  & Box Answer */}
-			{answerTag ? (
-				answerTag
-			) : (
-				<BoxQuestion
-					size={size}
-					status={status}
-				/>
-			)}
+			<Box
+				width={`${width}px`}
+				height={`${width}px`}
+			>
+				{answerTag ? (
+					answerTag
+				) : (
+					<BoxQuestion
+						size={size}
+						status={status}
+					/>
+				)}
+			</Box>
 		</HStack>
 	);
 };

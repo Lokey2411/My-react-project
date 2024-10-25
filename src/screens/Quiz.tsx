@@ -49,7 +49,6 @@ const Quiz = (props: Props) => {
 			<Center flex={1}>
 				<VStack space={10}>
 					<Formula
-						active
 						size="M"
 						data={listTest[quesIndex]}
 						status={EQuizStatus.ANSWER}
